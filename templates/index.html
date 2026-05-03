@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lethe — Machine Unlearning Lab</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>Lethe</h1>
+      <p class="tagline">
+        Interactive proof-of-concept for <em>UNSIR</em> — Fast Yet Effective Machine Unlearning.
+        Pick the classes you want a trained ResNet-18 to forget. Watch it forget them, in seconds, without ever revisiting a single forget-class sample.
+      </p>
+      <p class="meta">
+        <span id="device-pill" class="pill">device: ?</span>
+        <span id="ckpt-pill" class="pill">checkpoint: ?</span>
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2>1. Choose classes to forget</h2>
+      <p class="muted">Tick one or more CIFAR-10 classes. Their training samples are <strong>never</strong> shown to the optimiser during unlearning.</p>
+      <div id="class-grid" class="class-grid"></div>
+
+      <div class="controls">
+        <label>noise steps <input id="cfg-noise-steps" type="number" min="1" value="40" /></label>
+        <label>noise λ <input id="cfg-noise-lambda" type="number" step="0.05" value="0.1" /></label>
+        <label>impair lr <input id="cfg-impair-lr" type="number" step="0.001" value="0.02" /></label>
+        <label>repair lr <input id="cfg-repair-lr" type="number" step="0.001" value="0.01" /></label>
+        <label>retain / class <input id="cfg-per-class" type="number" min="50" value="500" /></label>
+      </div>
+
+      <div class="actions">
+        <button id="btn-unlearn" class="primary">Run UNSIR</button>
+        <button id="btn-reset">Reset to baseline</button>
+      </div>
+      <div id="run-status" class="run-status"></div>
+    </section>
+
+    <section class="panel">
+      <h2>2. Per-class accuracy</h2>
+      <p class="muted">Baseline = original model. Current = after the latest unlearn run. Hatched = forget classes from the last run.</p>
+      <div id="acc-chart" class="acc-chart"></div>
+      <div id="metrics" class="metrics"></div>
+    </section>
+
+    <section class="panel">
+      <h2>3. Phase timing</h2>
+      <p class="muted">Wall-clock time of each UNSIR phase. The paper claims under ~4 s end-to-end on ResNet-18 / CIFAR-10.</p>
+      <div id="timings"></div>
+    </section>
+
+    <section class="panel">
+      <h2>4. Sample predictions</h2>
+      <p class="muted">A handful of test images run through the current model. After unlearning, forget-class images should be confidently mis-classified into a retain class.</p>
+      <div class="sample-controls">
+        <button id="btn-refresh-samples">Refresh samples</button>
+        <select id="sample-filter">
+          <option value="all">all classes</option>
+        </select>
+      </div>
+      <div id="samples" class="samples"></div>
+    </section>
+
+    <section class="panel">
+      <h2>5. Run history</h2>
+      <table id="history">
+        <thead><tr><th>#</th><th>forget</th><th>ADf</th><th>ADr</th><th>noise</th><th>impair</th><th>repair</th><th>total</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      Implements <a target="_blank" href="https://arxiv.org/abs/2111.08947">Tarun et al., <em>Fast Yet Effective Machine Unlearning</em></a>.
+      Built as a research POC by Haider Niaz, Abdullah Mazhar, Hania Shafqat.
+    </p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
