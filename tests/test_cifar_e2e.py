@@ -14,10 +14,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import torch
 
-from lethe.data import cifar10, retain_subset, loader
-from lethe.evaluate import per_class_accuracy, adf_adr
-from lethe.model import build_resnet18_cifar, device
-from lethe.unsir import UnsirConfig, run_unsir
+from redact.data import cifar10, retain_subset, loader
+from redact.evaluate import per_class_accuracy, adf_adr
+from redact.model import build_resnet18_cifar, device
+from redact.unsir import UnsirConfig, run_unsir
 
 
 def main():

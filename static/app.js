@@ -1,4 +1,4 @@
-// Lethe dashboard frontend.
+// Redact dashboard frontend.
 
 const state = {
   classes: [],

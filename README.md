@@ -1,13 +1,13 @@
-# Lethe — Interactive Machine Unlearning Lab
+# Redact — Interactive Machine Unlearning Lab
 
-> *Lethe* — the river of forgetfulness in Greek myth. Drink from it and you forget.
+> *Redact* — to selectively remove sensitive information from a record, leaving the rest intact.
 
-Lethe is an interactive proof-of-concept for the **UNSIR** (Unlearning by Selective Impair and Repair) framework introduced in:
+Redact is an interactive proof-of-concept for the **UNSIR** (Unlearning by Selective Impair and Repair) framework introduced in:
 
 > Tarun, A. K., Chundawat, V. S., Mandal, M., & Kankanhalli, M.
 > *Fast Yet Effective Machine Unlearning.* arXiv:2111.08947v5, May 2023.
 
-It implements zero-glance class-level machine unlearning on a ResNet-18 trained on CIFAR-10, and exposes the full pipeline through a Flask-backed web dashboard.
+It implements zero-glance class-level machine unlearning on a ResNet-18 trained on CIFAR-10, and exposes the full pipeline through a Flask-backed web dashboard. Pick the classes you want a trained model to forget; watch it forget them, in seconds, without ever revisiting a single forget-class sample.
 
 ---
 
@@ -35,10 +35,10 @@ The Flask app at `http://localhost:5000` lets you:
 pip install -r requirements.txt
 
 # train baseline ResNet-18 on CIFAR-10 (~5 min on GPU)
-python -m lethe.train
+python -m redact.train
 
 # launch dashboard
-python -m lethe.app
+python -m redact.app
 ```
 
 Then open <http://localhost:5000>.
@@ -46,7 +46,7 @@ Then open <http://localhost:5000>.
 ## Layout
 
 ```
-lethe/
+redact/
   model.py     CIFAR-adapted ResNet-18
   data.py      CIFAR-10 loaders, retain/forget splits
   unsir.py     noise generation + impair + repair
@@ -64,3 +64,7 @@ checkpoints/   saved baseline weights
 - `ADf` — accuracy on forget classes (target ≈ 0%)
 - `ADr` — accuracy on retain classes (target close to original)
 - per-phase wall-clock time (paper claims < 4 s end-to-end on ResNet18+CIFAR-10)
+
+## Why "Redact"?
+
+When a privacy lawyer redacts a document, they black out specific sentences while leaving the rest perfectly readable. UNSIR is the same idea applied to a neural network: kill class-`c` knowledge, keep everything else intact. The name maps to the paper's GDPR / right-to-erasure motivation and to the surgical, *selective* nature of the algorithm itself.

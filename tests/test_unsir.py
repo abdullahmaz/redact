@@ -18,7 +18,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset, Subset
 
-from lethe.unsir import UnsirConfig, run_unsir
+from redact.unsir import UnsirConfig, run_unsir
 
 
 def make_toy_data(n_per_class: int = 400, n_classes: int = 4, dim: int = 8, seed: int = 0):

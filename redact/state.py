@@ -43,20 +43,20 @@ class AppState:
 def init_state(checkpoint_path: str = "checkpoints/baseline.pt") -> AppState:
     s = AppState(checkpoint_path=checkpoint_path)
     s.device = device()
-    print(f"[lethe] device: {s.device}")
-    print(f"[lethe] loading test set...")
+    print(f"[redact] device: {s.device}")
+    print(f"[redact] loading test set...")
     s.test_set = cifar10(train=False, augment=False)
     s.raw_test_set = s.test_set  # transforms already non-augmented
     s.test_loader = loader(s.test_set, batch_size=256, shuffle=False)
-    print(f"[lethe] loading train set...")
+    print(f"[redact] loading train set...")
     s.train_set = cifar10(train=True, augment=False)
     if not Path(checkpoint_path).exists():
         raise FileNotFoundError(
             f"Baseline checkpoint not found at {checkpoint_path}. "
-            "Run `python -m lethe.train` first."
+            "Run `python -m redact.train` first."
         )
     s.reload_model()
-    print(f"[lethe] computing baseline per-class accuracy...")
+    print(f"[redact] computing baseline per-class accuracy...")
     s.baseline_per_class = per_class_accuracy(s.model, s.test_loader, 10, s.device)
     s.current_per_class = list(s.baseline_per_class)
     return s

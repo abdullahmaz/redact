@@ -1,4 +1,4 @@
-"""Flask dashboard for Lethe.
+"""Flask dashboard for Redact.
 
 Endpoints:
     GET  /                — dashboard UI
