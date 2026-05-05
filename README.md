@@ -1,4 +1,4 @@
-# Redact — Interactive Machine Unlearning Lab
+# Redact — Interactive Machine Unlearning
 
 > *Redact* — to selectively remove sensitive information from a record, leaving the rest intact.
 
