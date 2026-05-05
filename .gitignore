@@ -10,10 +10,12 @@ checkpoints/*.pth
 *.log
 
 .idea/
-.vscode/
 .DS_Store
 Thumbs.db
 
 pdf_content.txt
 extract.py
 training.log
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
